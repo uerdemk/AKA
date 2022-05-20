@@ -1,0 +1,36 @@
+version: "3.9"  
+services:
+  jenkins:
+    container_name: jenkins
+    image: jenkins 
+    build:
+      context: jenkins    
+    ports:
+      - "8080:8080"
+    volumes:
+      - C:\Users\localuser\jenkins:/jenkins
+    networks:
+      br0:
+  remote_host:
+    container_name: remote_host
+    image: remote_host
+    build:
+      context: remote_host
+    volumes:
+      - C:\Users\localuser\remote_host:/remote_host
+    networks:
+      br0:
+  gitlab:
+    container_name: gitlab
+    image: 'gitlab/gitlab-ce:latest'
+    hostname: 'gitlab.example.com'
+    ports:
+      - '8090:80'
+    volumes:
+      - 'C:\Users\localuser\git_host\etc:/etc/gitlab'
+      - 'C:\Users\localuser\git_host\log:/var/log/gitlab'
+      - 'C:\Users\localuser\git_host\opt:/var/opt/gitlab'
+    networks:
+      br0:
+networks:
+      br0:  
